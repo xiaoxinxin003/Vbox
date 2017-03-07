@@ -8,4 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CustomTheme" parent="@android:style/Theme.Holo.Light.Dialog.NoActionBar">
+    </style>
+
 </resources>

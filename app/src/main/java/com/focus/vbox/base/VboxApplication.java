@@ -1,4 +1,4 @@
-package com.focus.vbox;
+package com.focus.vbox.base;
 
 import android.app.Application;
 
@@ -8,4 +8,9 @@ import android.app.Application;
 
 public class VboxApplication extends Application {
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+    }
 }

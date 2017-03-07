@@ -1,13 +1,16 @@
 package com.focus.vbox;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class VboxMainActivity extends AppCompatActivity {
+import com.focus.vbox.base.BaseActivity;
+
+public class VboxMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vbox_main);
     }
+
+
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Vbox</string>
+    <style name="local_videos">本地视频</style>
 </resources>
