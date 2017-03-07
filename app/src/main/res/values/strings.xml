@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Vbox</string>
-    <style name="local_videos">本地视频</style>
+    <string name="local_videos">本地视频</string>
+    <string name="net_videos">推荐资源</string>
+    <string name="settings">设置</string>
 </resources>

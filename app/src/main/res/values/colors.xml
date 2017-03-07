@@ -2,5 +2,33 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF4081</color>    <color name="black87">#de333333</color>
+    <color name="black75">#c0333333</color>
+    <color name="black54">#8a333333</color>
+    <color name="black50">#80333333</color>
+    <color name="black26">#43333333</color>
+    <color name="black12">#1f333333</color>
+    <color name="black">#000000</color>
+
+    <color name="white87">#deffffff</color>
+    <color name="white80">#ccffffff</color>
+    <color name="white75">#c0ffffff</color>
+    <color name="white54">#8affffff</color>
+    <color name="white26">#43ffffff</color>
+    <color name="white12">#1fffffff</color>
+
+    <!-- color box -->
+    <color name="color_box_item_1">#ffffff</color>
+    <color name="color_box_item_2">#ffd4c5</color>
+    <color name="color_box_item_3">#ffe243</color>
+    <color name="color_box_item_4">#ff9523</color>
+    <color name="color_box_item_5">#f13434</color>
+    <color name="color_box_item_6">#d157eb</color>
+    <color name="color_box_item_7">#4ca6ff</color>
+    <color name="color_box_item_8">#23ebc9</color>
+    <color name="color_box_item_9">#57b827</color>
+    <color name="color_box_item_10">#0e0e0c</color>
+    <color name="color_box_item_rect">#cccccc</color>
+    <color name="color_box_item_press_rect">#66cccccc</color>
+
 </resources>
