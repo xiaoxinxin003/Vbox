@@ -20,4 +20,11 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         layout="@layout/view_bottom_bar"/>
+    <Button
+        android:id="@+id/btn_play"
+        android:padding="8dp"
+        android:text="@string/play"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
