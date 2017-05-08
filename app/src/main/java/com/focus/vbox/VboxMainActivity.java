@@ -6,7 +6,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
-import android.widget.TextView;
 
 import com.focus.vbox.base.BaseActivity;
 import com.focus.vbox.view.PlayActivity;

@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
 import com.focus.vbox.R;
 import com.focus.vbox.bean.SwitchVideoModel;
 

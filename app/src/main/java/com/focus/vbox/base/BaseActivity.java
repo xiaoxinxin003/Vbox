@@ -1,6 +1,5 @@
 package com.focus.vbox.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
