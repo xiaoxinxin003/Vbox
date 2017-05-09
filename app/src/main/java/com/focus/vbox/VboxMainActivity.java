@@ -72,8 +72,6 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
         }
     }
 
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
