@@ -28,6 +28,7 @@ public class PlayActivity extends AppCompatActivity {
 
     public final static String IMG_TRANSITION = "IMG_TRANSITION";
     public final static String TRANSITION = "TRANSITION";
+    private static final String TAG = "PlayActivity";
 
     OrientationUtils orientationUtils;
 
@@ -65,7 +66,7 @@ public class PlayActivity extends AppCompatActivity {
         list.add(switchVideoModel);
         list.add(switchVideoModel2);
 
-        videoPlayer.setUp(list, true, "");
+        videoPlayer.setUp(list, true, "测试视频");
 
         //增加封面
         ImageView imageView = new ImageView(this);
