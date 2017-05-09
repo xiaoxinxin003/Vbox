@@ -124,4 +124,10 @@ public class VboxMainActivity extends BaseActivity implements View.OnClickListen
             overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mVideoList.clear();
+    }
 }
