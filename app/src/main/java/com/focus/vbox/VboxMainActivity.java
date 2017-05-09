@@ -28,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class VboxMainActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "VboxMainActivity";
+    private static final String TAG = "my_log";
     private StandardGSYVideoPlayer gsyVideoPlayer;
     private List<File> mVideoList;
     private long startTime;
@@ -60,8 +60,8 @@ public class VboxMainActivity extends BaseActivity implements View.OnClickListen
                 mVideoList = FileUtils.searchAllMedias(Environment.getExternalStorageDirectory());
                 emitter.onNext(mVideoList);
             }
-        }).observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(
                 new Observer<List<File>>() {
                     @Override
@@ -73,6 +73,7 @@ public class VboxMainActivity extends BaseActivity implements View.OnClickListen
                     public void onNext(List videos) {
                         Log.d(TAG, "videos size is : " + videos.size());
                         mVideoCounts.setText(String.valueOf(videos.size()));
+                        Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
                     }
 
                     @Override

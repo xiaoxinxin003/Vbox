@@ -1,5 +1,7 @@
 package com.focus.vbox.utils;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,7 @@ public class FileUtils {
     }
 
     public static List<File> searchAllMedias(File path) {
+        Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
         if (path != null && path.exists() && path.isDirectory()) {
             File[] files = path.listFiles();
             if (files != null) {
