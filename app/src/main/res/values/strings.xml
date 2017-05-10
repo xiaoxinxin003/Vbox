@@ -3,5 +3,6 @@
     <string name="local_videos">本地视频</string>
     <string name="net_videos">推荐资源</string>
     <string name="play">播放</string>
+    <string name="scan">扫描</string>
     <string name="settings">设置</string>
 </resources>

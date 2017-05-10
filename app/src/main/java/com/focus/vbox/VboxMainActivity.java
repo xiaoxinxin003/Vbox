@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.focus.vbox.base.BaseActivity;
+import com.focus.vbox.manager.ConfigManager;
+import com.focus.vbox.manager.VboxFragmentManager;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.PlayActivity;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -26,13 +28,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class VboxMainActivity extends BaseActivity implements View.OnClickListener {
+public class VboxMainActivity extends FragmentActivity implements View.OnClickListener {
 
     private static final String TAG = "my_log";
     private StandardGSYVideoPlayer gsyVideoPlayer;
     private List<File> mVideoList;
     private long startTime;
     private TextView mVideoCounts;
+    private VboxFragmentManager mVboxFragmentManager;
+    private View mScanBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +51,49 @@ public class VboxMainActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.tv_bottom_local_videos).setOnClickListener(this);
         findViewById(R.id.tv_bottom_resources).setOnClickListener(this);
         findViewById(R.id.tv_bottom_settings).setOnClickListener(this);
-        findViewById(R.id.btn_play).setOnClickListener(this);
-        init();
+        mScanBtn = findViewById(R.id.btn_scan);
+        if (!ConfigManager.getInstance().getAutoScan()) {
+            mScanBtn.setVisibility(View.VISIBLE);
+        }
+        initListener();
+        initData();
     }
 
-    private void init() {
+    private void initListener() {
+        mScanBtn.setOnClickListener(this);
+    }
 
+    private void initData() {
+        mVboxFragmentManager = VboxFragmentManager.getInstance();
+        mVboxFragmentManager.init(getSupportFragmentManager());
+        if (ConfigManager.getInstance().getAutoScan()) {
+            scan();
+            mScanBtn.setVisibility(View.GONE);
+        }
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_bottom_local_videos:
+                mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_LOCAL_FRAGMENT);
+                break;
+            case R.id.tv_bottom_resources:
+                mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_RECOMEND_FRAGMENT);
+                break;
+            case R.id.tv_bottom_settings:
+                mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_SETTINGS);
+                break;
+            case R.id.btn_scan:
+                ConfigManager.getInstance().setAutoScan(true);
+                scan();
+                break;
+        }
+    }
+
+    private void scan() {
         //创建一个上游 Observable：
         Observable.create(new ObservableOnSubscribe<List<File>>() {
             @Override
@@ -63,52 +104,31 @@ public class VboxMainActivity extends BaseActivity implements View.OnClickListen
         }).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                new Observer<List<File>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d(TAG, "subscribe");
-                    }
+                        new Observer<List<File>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                Log.d(TAG, "subscribe");
+                            }
 
-                    @Override
-                    public void onNext(List videos) {
-                        Log.d(TAG, "videos size is : " + videos.size());
-                        mVideoCounts.setText(String.valueOf(videos.size()));
-                        Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
-                    }
+                            @Override
+                            public void onNext(List videos) {
+                                Log.d(TAG, "videos size is : " + videos.size());
+                                mVideoCounts.setText(String.valueOf(videos.size()));
+                                mScanBtn.setVisibility(View.GONE);
+                                Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onComplete() {
+                            @Override
+                            public void onComplete() {
 
-                    }
-                }
-        );
-
-
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_bottom_local_videos:
-
-                break;
-            case R.id.tv_bottom_resources:
-
-                break;
-            case R.id.tv_bottom_settings:
-
-                break;
-            case R.id.btn_play:
-                play();
-                break;
-        }
+                            }
+                        }
+                );
     }
 
     private void play() {
