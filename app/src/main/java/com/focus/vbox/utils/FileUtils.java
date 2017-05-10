@@ -1,6 +1,9 @@
 package com.focus.vbox.utils;
 
 import android.util.Log;
+import android.widget.TextView;
+
+import com.focus.vbox.manager.MainHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,17 +31,25 @@ public class FileUtils {
         mHashAudio = new HashSet<>(Arrays.asList(AUDIO_EXTENSIONS));
     }
 
-    public static List<File> searchAllMedias(File path) {
+    public static List<File> searchAllMedias(File path, final TextView mCurrentScanFile) {
         Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
         if (path != null && path.exists() && path.isDirectory()) {
             File[] files = path.listFiles();
             if (files != null) {
-                for (File file : path.listFiles()) {
+                for (final File file : path.listFiles()) {
                     if (file.isDirectory()) {
-                        searchAllMedias(file);
-                    } else if (file.exists() && file.canRead() && isVideo(file)) {
+                        searchAllMedias(file, mCurrentScanFile);
+                    } else if (file.exists()) {
+                        MainHandler.getInstance().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mCurrentScanFile.setText(file.getName());
+                            }
+                        });
+                        if (file.canRead() && isVideo(file)) {
+                            videoList.add(file);
+                        }
                         //"find video file , we can save it to file list
-                        videoList.add(file);
                     }
                 }
                 return videoList;

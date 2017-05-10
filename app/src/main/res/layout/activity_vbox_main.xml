@@ -7,6 +7,14 @@
     android:background="#ffffff"
     >
 
+    <TextView
+        android:id="@+id/tv_current_scan_file"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"/>
+
     <View
         android:id="@+id/divider_line"
         android:layout_width="match_parent"
@@ -20,6 +28,12 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         layout="@layout/view_bottom_bar"/>
+    <ProgressBar
+        android:id="@+id/pb_scaning"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
     <Button
         android:id="@+id/btn_scan"
         android:padding="8dp"

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.focus.vbox.manager.ConfigManager;
@@ -37,6 +38,8 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     private TextView mVideoCounts;
     private VboxFragmentManager mVboxFragmentManager;
     private View mScanBtn;
+    private TextView mCurrentScanFile;
+    private ProgressBar mScaningProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
         findViewById(R.id.tv_bottom_resources).setOnClickListener(this);
         findViewById(R.id.tv_bottom_settings).setOnClickListener(this);
         mScanBtn = findViewById(R.id.btn_scan);
+        mScaningProgress = (ProgressBar) findViewById(R.id.pb_scaning);
+        mCurrentScanFile = (TextView) findViewById(R.id.tv_current_scan_file);
         if (!ConfigManager.getInstance().getAutoScan()) {
             mScanBtn.setVisibility(View.VISIBLE);
         }
@@ -86,6 +91,8 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
                 break;
             case R.id.btn_scan:
                 ConfigManager.getInstance().setAutoScan(true);
+                mScanBtn.setVisibility(View.GONE);
+                mScaningProgress.setVisibility(View.VISIBLE);
                 scan();
                 break;
         }
@@ -96,7 +103,7 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
         Observable.create(new ObservableOnSubscribe<List<File>>() {
             @Override
             public void subscribe(ObservableEmitter<List<File>> emitter) throws Exception {
-                mVideoList = FileUtils.searchAllMedias(Environment.getExternalStorageDirectory());
+                mVideoList = FileUtils.searchAllMedias(Environment.getExternalStorageDirectory(), mCurrentScanFile);
                 emitter.onNext(mVideoList);
             }
         }).observeOn(AndroidSchedulers.mainThread())
@@ -111,8 +118,9 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
                             @Override
                             public void onNext(List videos) {
                                 Log.d(TAG, "videos size is : " + videos.size());
-                                mVideoCounts.setText(String.valueOf(videos.size()));
+                                mVideoCounts.setText("total video is: "+String.valueOf(videos.size()));
                                 mScanBtn.setVisibility(View.GONE);
+                                mScaningProgress.setVisibility(View.GONE);
                                 Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
                             }
 
