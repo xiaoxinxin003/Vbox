@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.focus.vbox.R;
 import com.focus.vbox.base.BaseFragment;
@@ -69,9 +71,16 @@ public class RecomendFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-
-        mRecomendWebView.loadUrl("http://live.bilibili.com/h5/");
-//        mRecomendWebView.setWebViewClient(new CustomWebViewClient());
+        mRecomendWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        mRecomendWebView.loadUrl("http://m.bilibili.com/subchannel.html#tid=5");
+        mRecomendWebView.setWebChromeClient(new WebChromeClient());
     }
 
 }
