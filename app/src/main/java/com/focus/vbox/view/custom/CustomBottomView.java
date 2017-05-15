@@ -13,6 +13,7 @@ import com.focus.vbox.R;
 import com.focus.vbox.manager.VboxFragmentManager;
 
 /**
+ * 自定义底部工具栏
  * Created by focus on 2017/5/15.
  */
 
