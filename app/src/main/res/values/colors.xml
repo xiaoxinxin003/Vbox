@@ -2,7 +2,29 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>    <color name="black87">#de333333</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="navigation_bar_bg">#cccccc</color>
+    <color name="navigation_title_text">#727272</color>
+    <color name="navigation_title_bg">#ff4037</color>
+
+    <color name="base_txt">#11b8f5</color>
+    <color name="base_txt_diseditable">#999999</color>
+    <color name="edit_txt_diseditable">#eeeeee</color>
+    <color name="base_txt_deep">#458B00</color>
+    <color name="transparent">#00000000</color>
+    <color name="hint_foreground_dark">#727272</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#6e6e6e</color>
+    <color name="click_block_bg">#f4f4f4</color>
+
+    <color name="empty_view_background_color">#E9EAEE</color>
+    <!-- 按钮字体颜色 -->
+    <color name="common_btn_text_color_enable">#de000000</color>
+    <color name="common_btn_text_color_disable">#929292</color>
+
+
+    <color name="black87">#de333333</color>
     <color name="black75">#c0333333</color>
     <color name="black54">#8a333333</color>
     <color name="black50">#80333333</color>
@@ -10,25 +32,16 @@
     <color name="black12">#1f333333</color>
     <color name="black">#000000</color>
 
+    <!--settings text color -->
+    <color name="settings_title_text_color">#333333</color>
+    <color name="settings_sub_text_color">#999999</color>
+    <color name="about_home_address">#12b7f5</color>
+
     <color name="white87">#deffffff</color>
     <color name="white80">#ccffffff</color>
     <color name="white75">#c0ffffff</color>
     <color name="white54">#8affffff</color>
     <color name="white26">#43ffffff</color>
     <color name="white12">#1fffffff</color>
-
-    <!-- color box -->
-    <color name="color_box_item_1">#ffffff</color>
-    <color name="color_box_item_2">#ffd4c5</color>
-    <color name="color_box_item_3">#ffe243</color>
-    <color name="color_box_item_4">#ff9523</color>
-    <color name="color_box_item_5">#f13434</color>
-    <color name="color_box_item_6">#d157eb</color>
-    <color name="color_box_item_7">#4ca6ff</color>
-    <color name="color_box_item_8">#23ebc9</color>
-    <color name="color_box_item_9">#57b827</color>
-    <color name="color_box_item_10">#0e0e0c</color>
-    <color name="color_box_item_rect">#cccccc</color>
-    <color name="color_box_item_press_rect">#66cccccc</color>
 
 </resources>

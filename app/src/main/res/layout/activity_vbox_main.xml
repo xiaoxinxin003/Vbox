@@ -7,7 +7,14 @@
     android:background="#ffffff"
     >
 
+    <com.focus.vbox.common.CommonTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name" />
+
     <TextView
+        android:layout_below="@id/title_bar"
         android:id="@+id/tv_current_scan_file"
         android:padding="10dp"
         android:layout_centerHorizontal="true"

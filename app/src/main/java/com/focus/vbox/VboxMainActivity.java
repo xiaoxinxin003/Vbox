@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.focus.vbox.common.CommonTitleBar;
 import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.manager.VboxFragmentManager;
 import com.focus.vbox.utils.FileUtils;
@@ -40,6 +41,7 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     private View mScanBtn;
     private TextView mCurrentScanFile;
     private ProgressBar mScaningProgress;
+    private CommonTitleBar mCommonTitleBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,12 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
         }
         initListener();
         initData();
+        initTitleBar();
+    }
+
+    private void initTitleBar() {
+        mCommonTitleBar = (CommonTitleBar) findViewById(R.id.title_bar);
+        mCommonTitleBar.findViewById(R.id.common_img_back).setVisibility(View.GONE);
     }
 
     private void initListener() {
