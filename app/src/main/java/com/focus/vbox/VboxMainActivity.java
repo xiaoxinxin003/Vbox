@@ -18,7 +18,6 @@ import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.manager.VboxFragmentManager;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.PlayActivity;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.io.File;
 import java.util.List;
@@ -34,46 +33,30 @@ import io.reactivex.schedulers.Schedulers;
 public class VboxMainActivity extends FragmentActivity implements View.OnClickListener {
 
     private static final String TAG = "my_log";
-    private StandardGSYVideoPlayer gsyVideoPlayer;
     private List<File> mVideoList;
-    private long startTime;
-    private TextView mVideoCounts;
     private VboxFragmentManager mVboxFragmentManager;
     private View mScanBtn;
-    private TextView mCurrentScanFile;
-    private ProgressBar mScaningProgress;
     private CommonTitleBar mCommonTitleBar;
-    private TextView mBottomLocalBtn;
-    private TextView mBottomNetBtn;
-    private TextView mBottomSetBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vbox_main);
-        gsyVideoPlayer = new StandardGSYVideoPlayer(this);
         mVboxFragmentManager = VboxFragmentManager.getInstance();
-        mVboxFragmentManager.init(getSupportFragmentManager());
+        mVboxFragmentManager.init(this);
         initView();
     }
 
     private void initView() {
-
         mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_LOCAL_FRAGMENT);
-
-        mVideoCounts = (TextView) findViewById(R.id.tv_count);
-        mBottomLocalBtn = (TextView) findViewById(R.id.tv_bottom_local_videos);
-        mBottomNetBtn = (TextView) findViewById(R.id.tv_bottom_resources);
-        mBottomSetBtn = (TextView) findViewById(R.id.tv_bottom_settings);
-        mScanBtn = findViewById(R.id.btn_scan);
-        mScaningProgress = (ProgressBar) findViewById(R.id.pb_scaning);
-        mCurrentScanFile = (TextView) findViewById(R.id.tv_current_scan_file);
-        if (!ConfigManager.getInstance().getAutoScan()) {
-            mScanBtn.setVisibility(View.VISIBLE);
-        }
+        initCustomBottomBar();
         initListener();
         initData();
         initTitleBar();
+    }
+
+    private void initCustomBottomBar() {
+
     }
 
     private void initTitleBar() {
@@ -82,36 +65,23 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     }
 
     private void initListener() {
-        mScanBtn.setOnClickListener(this);
-        mBottomLocalBtn.setOnClickListener(this);
-        mBottomNetBtn.setOnClickListener(this);
-        mBottomSetBtn.setOnClickListener(this);
+//        mScanBtn.setOnClickListener(this);
     }
 
     private void initData() {
         if (ConfigManager.getInstance().getAutoScan()) {
-            scan();
-            mScanBtn.setVisibility(View.GONE);
+//            scan();
+//            mScanBtn.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_bottom_local_videos:
-                mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_LOCAL_FRAGMENT);
-                break;
-            case R.id.tv_bottom_resources:
-                mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_RECOMEND_FRAGMENT);
-                break;
-            case R.id.tv_bottom_settings:
-                mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_SETTINGS);
-                break;
             case R.id.btn_scan:
                 ConfigManager.getInstance().setAutoScan(true);
                 mScanBtn.setVisibility(View.GONE);
-                mScaningProgress.setVisibility(View.VISIBLE);
-                scan();
+//                scan();
                 break;
         }
     }
@@ -121,7 +91,7 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
         Observable.create(new ObservableOnSubscribe<List<File>>() {
             @Override
             public void subscribe(ObservableEmitter<List<File>> emitter) throws Exception {
-                mVideoList = FileUtils.searchAllMedias(Environment.getExternalStorageDirectory(), mCurrentScanFile);
+//                mVideoList = FileUtils.searchAllMedias(Environment.getExternalStorageDirectory(), mCurrentScanFile);
                 emitter.onNext(mVideoList);
             }
         }).observeOn(AndroidSchedulers.mainThread())
@@ -136,9 +106,7 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
                             @Override
                             public void onNext(List videos) {
                                 Log.d(TAG, "videos size is : " + videos.size());
-                                mVideoCounts.setText("total video is: "+String.valueOf(videos.size()));
                                 mScanBtn.setVisibility(View.GONE);
-                                mScaningProgress.setVisibility(View.GONE);
                                 Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
                             }
 

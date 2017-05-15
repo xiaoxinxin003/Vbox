@@ -25,12 +25,13 @@
         android:layout_height="0.5dp"
         android:layout_above="@+id/toolbar_bottom"
         android:background="@color/black26"/>
-    <include
+
+    <com.focus.vbox.view.custom.CustomBottomView
         android:id="@+id/toolbar_bottom"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        layout="@layout/view_bottom_bar"/>
+        />
 
     <LinearLayout
         android:layout_below="@id/toolbar_bottom"

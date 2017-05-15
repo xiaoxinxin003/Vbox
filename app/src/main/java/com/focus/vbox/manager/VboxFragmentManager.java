@@ -1,6 +1,8 @@
 package com.focus.vbox.manager;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -38,8 +40,10 @@ public class VboxFragmentManager {
         return mInstance;
     }
 
-    public void init(FragmentManager fragmentManager) {
-        mFragmentManager = fragmentManager;
+    public void init(FragmentActivity activity) {
+        if (activity != null) {
+            mFragmentManager = activity.getSupportFragmentManager();
+        }
     }
 
     public VboxFragmentManager() {
