@@ -13,48 +13,56 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name" />
 
-    <TextView
+    <FrameLayout
         android:layout_below="@id/title_bar"
-        android:id="@+id/tv_current_scan_file"
-        android:padding="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"/>
-
+        android:id="@+id/content_layout"
+        android:layout_above="@+id/divider_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <View
         android:id="@+id/divider_line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_above="@+id/toolbar_bottom"
         android:background="@color/black26"/>
-
     <include
         android:id="@+id/toolbar_bottom"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         layout="@layout/view_bottom_bar"/>
-    <ProgressBar
-        android:id="@+id/pb_scaning"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:visibility="gone"
-        android:layout_centerInParent="true"/>
-    <Button
-        android:id="@+id/btn_scan"
-        android:padding="8dp"
-        android:text="@string/scan"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
+
+    <LinearLayout
+        android:layout_below="@id/toolbar_bottom"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/tv_count"
-        android:layout_below="@id/btn_scan"
-        android:layout_centerInParent="true"
-        android:padding="8dp"
-        android:text=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_current_scan_file"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"/>
+
+        <ProgressBar
+            android:id="@+id/pb_scaning"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+        <Button
+            android:id="@+id/btn_scan"
+            android:padding="8dp"
+            android:text="@string/scan"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_count"
+            android:padding="8dp"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>

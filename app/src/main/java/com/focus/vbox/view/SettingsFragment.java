@@ -10,13 +10,13 @@ import com.focus.vbox.R;
 import com.focus.vbox.base.BaseFragment;
 
 /**
- * Created by focus on 2017/5/10.
+ * Created by yxx on 2017/3/7.
  */
 
-public class RecomendFragment extends BaseFragment {
+public class SettingsFragment extends BaseFragment {
 
-    public static RecomendFragment newInstance(Bundle args) {
-        RecomendFragment fragment = new RecomendFragment();
+    public static SettingsFragment newInstance(Bundle args) {
+        SettingsFragment fragment = new SettingsFragment();
         if (args == null) {
             args = new Bundle();
         }
@@ -24,12 +24,13 @@ public class RecomendFragment extends BaseFragment {
         return fragment;
     }
 
-    public RecomendFragment() {
+
+    public SettingsFragment() {
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_net_videos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         initView(rootView);
         return rootView;
     }
@@ -37,5 +38,8 @@ public class RecomendFragment extends BaseFragment {
     private void initView(View rootView) {
 
     }
+
+
+
 
 }

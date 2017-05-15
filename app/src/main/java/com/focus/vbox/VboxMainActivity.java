@@ -1,6 +1,7 @@
 package com.focus.vbox;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -42,20 +43,28 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     private TextView mCurrentScanFile;
     private ProgressBar mScaningProgress;
     private CommonTitleBar mCommonTitleBar;
+    private TextView mBottomLocalBtn;
+    private TextView mBottomNetBtn;
+    private TextView mBottomSetBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vbox_main);
         gsyVideoPlayer = new StandardGSYVideoPlayer(this);
+        mVboxFragmentManager = VboxFragmentManager.getInstance();
+        mVboxFragmentManager.init(getSupportFragmentManager());
         initView();
     }
 
     private void initView() {
+
+        mVboxFragmentManager.showFragment(VboxFragmentManager.TAG_LOCAL_FRAGMENT);
+
         mVideoCounts = (TextView) findViewById(R.id.tv_count);
-        findViewById(R.id.tv_bottom_local_videos).setOnClickListener(this);
-        findViewById(R.id.tv_bottom_resources).setOnClickListener(this);
-        findViewById(R.id.tv_bottom_settings).setOnClickListener(this);
+        mBottomLocalBtn = (TextView) findViewById(R.id.tv_bottom_local_videos);
+        mBottomNetBtn = (TextView) findViewById(R.id.tv_bottom_resources);
+        mBottomSetBtn = (TextView) findViewById(R.id.tv_bottom_settings);
         mScanBtn = findViewById(R.id.btn_scan);
         mScaningProgress = (ProgressBar) findViewById(R.id.pb_scaning);
         mCurrentScanFile = (TextView) findViewById(R.id.tv_current_scan_file);
@@ -74,11 +83,12 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
 
     private void initListener() {
         mScanBtn.setOnClickListener(this);
+        mBottomLocalBtn.setOnClickListener(this);
+        mBottomNetBtn.setOnClickListener(this);
+        mBottomSetBtn.setOnClickListener(this);
     }
 
     private void initData() {
-        mVboxFragmentManager = VboxFragmentManager.getInstance();
-        mVboxFragmentManager.init(getSupportFragmentManager());
         if (ConfigManager.getInstance().getAutoScan()) {
             scan();
             mScanBtn.setVisibility(View.GONE);
@@ -162,6 +172,8 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mVideoList.clear();
+        if (mVideoList != null) {
+            mVideoList.clear();
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.focus.vbox.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,14 @@ import com.focus.vbox.base.BaseFragment;
 
 public class LocalVideoFragment extends BaseFragment {
 
+    public static LocalVideoFragment newInstance(Bundle args) {
+        LocalVideoFragment fragment = new LocalVideoFragment();
+        if (args == null) {
+            args = new Bundle();
+        }
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     public LocalVideoFragment() {
@@ -30,4 +39,8 @@ public class LocalVideoFragment extends BaseFragment {
     private void initView(View rootView) {
 
     }
+
+
+
+
 }
