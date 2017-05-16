@@ -30,12 +30,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class VboxMainActivity extends FragmentActivity implements View.OnClickListener {
+public class VboxMainActivity extends FragmentActivity {
 
     private static final String TAG = "my_log";
-    private List<File> mVideoList;
     private VboxFragmentManager mVboxFragmentManager;
-    private View mScanBtn;
     private CommonTitleBar mCommonTitleBar;
 
     @Override
@@ -65,63 +63,12 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     }
 
     private void initListener() {
-//        mScanBtn.setOnClickListener(this);
     }
 
     private void initData() {
-        if (ConfigManager.getInstance().getAutoScan()) {
-//            scan();
-//            mScanBtn.setVisibility(View.GONE);
-        }
+
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_scan:
-                ConfigManager.getInstance().setAutoScan(true);
-                mScanBtn.setVisibility(View.GONE);
-//                scan();
-                break;
-        }
-    }
-
-    private void scan() {
-        //创建一个上游 Observable：
-        Observable.create(new ObservableOnSubscribe<List<File>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<File>> emitter) throws Exception {
-//                mVideoList = FileUtils.searchAllMedias(Environment.getExternalStorageDirectory(), mCurrentScanFile);
-                emitter.onNext(mVideoList);
-            }
-        }).observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        new Observer<List<File>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                Log.d(TAG, "subscribe");
-                            }
-
-                            @Override
-                            public void onNext(List videos) {
-                                Log.d(TAG, "videos size is : " + videos.size());
-                                mScanBtn.setVisibility(View.GONE);
-                                Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-                );
-    }
 
     private void play() {
         Intent intent = new Intent(this, PlayActivity.class);
@@ -140,8 +87,5 @@ public class VboxMainActivity extends FragmentActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mVideoList != null) {
-            mVideoList.clear();
-        }
     }
 }
