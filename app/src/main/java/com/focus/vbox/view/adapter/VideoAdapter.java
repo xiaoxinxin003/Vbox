@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.focus.vbox.R;
+import com.focus.vbox.base.VboxApplication;
 import com.focus.vbox.utils.FileUtils;
 
 import java.io.File;
@@ -82,6 +84,9 @@ public class VideoAdapter implements ListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+//        Glide.with(VboxApplication.getAppContext())
+//                .load(FileUtils.getVideoThumbnail(info.getPath()))
+//                .into(holder.videoCover);
         holder.videoCover.setImageBitmap(FileUtils.getVideoThumbnail(info.getPath()));
         holder.videoName.setText(info.getName());
         holder.videoSize.setText("60MB");
