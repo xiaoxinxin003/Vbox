@@ -24,7 +24,7 @@ import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.activity.PlayActivity;
 import com.focus.vbox.view.adapter.VideoAdapter;
-
+import android.widget.AdapterView.OnItemClickListener;
 import java.io.File;
 import java.util.List;
 
@@ -141,7 +141,8 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
         mLoadingPb.setVisibility(View.GONE);
         mVideoList.setVisibility(View.VISIBLE);
         mVideoList.setAdapter(new VideoAdapter(videos, getContext()));
-        mVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        mVideoList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 play(videos.get(position));

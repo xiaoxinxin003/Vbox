@@ -2,6 +2,7 @@ package com.focus.vbox.view.adapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +10,18 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.focus.vbox.R;
-import com.focus.vbox.base.VboxApplication;
 import com.focus.vbox.utils.FileUtils;
 
 import java.io.File;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
 /**
@@ -71,8 +78,8 @@ public class VideoAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        File info = mList.get(position);
+        final ViewHolder holder;
+        final File info = mList.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_video, null);
@@ -87,7 +94,24 @@ public class VideoAdapter implements ListAdapter {
 //        Glide.with(VboxApplication.getAppContext())
 //                .load(FileUtils.getVideoThumbnail(info.getPath()))
 //                .into(holder.videoCover);
-        holder.videoCover.setImageBitmap(FileUtils.getVideoThumbnail(info.getPath()));
+//        holder.videoCover.setImageBitmap(FileUtils.getVideoThumbnail(info.getPath()));
+        Observable.create(new ObservableOnSubscribe<Bitmap>() {
+            @Override
+            public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
+                Bitmap bitmap = FileUtils.getVideoThumbnail(info.getPath());
+                if (bitmap != null) {
+                    e.onNext(bitmap);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(new Consumer<Bitmap>() {
+                @Override
+                public void accept(Bitmap bitmap) throws Exception {
+                    holder.videoCover.setImageBitmap(bitmap);
+                }
+            })
+        ;
         holder.videoName.setText(info.getName());
         holder.videoSize.setText("60MB");
         holder.videoTime.setText("2:23");

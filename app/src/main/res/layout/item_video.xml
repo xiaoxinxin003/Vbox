@@ -2,8 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:padding="6dp"
+    android:descendantFocusability="blocksDescendants"
     android:layout_height="65dp">
 
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/black87"
+        android:layout_alignParentBottom="true"
+        android:layout_height="0.5dp"/>
     <ImageView
         android:id="@+id/iv_video_cover"
         android:src="@mipmap/ic_launcher"
