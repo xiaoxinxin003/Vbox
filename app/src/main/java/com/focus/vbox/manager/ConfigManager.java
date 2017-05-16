@@ -14,6 +14,10 @@ public class ConfigManager {
     private static final boolean DEFAULT_TRUE_VALUE = true;
     private static ConfigManager mInstance;
 
+    public ConfigManager() {
+        ConfigWraper.init();
+    }
+
     public static ConfigManager getInstance() {
         if (mInstance == null) {
             synchronized (ConfigManager.class) {
@@ -43,9 +47,7 @@ public class ConfigManager {
     }
 
 
+    public void init() {
 
-
-
-
-
+    }
 }

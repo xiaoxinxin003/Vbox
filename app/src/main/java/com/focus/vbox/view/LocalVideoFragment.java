@@ -104,7 +104,6 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
                             @Override
                             public void onNext(List videos) {
                                 Log.d(TAG, "videos size is : " + videos.size());
-                                mScanBtn.setVisibility(View.GONE);
                                 setScanSuc(videos);
                                 Log.d("my_log", "current thread is :" + Thread.currentThread().getName());
                             }
@@ -125,6 +124,7 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
     private void setScanSuc(List videos) {
         if (videos.size() <= 0) {
             Toast.makeText(getContext(), "no video low b!", Toast.LENGTH_SHORT).show();
+            mScanBtn.setVisibility(View.VISIBLE);
             mLoadingPb.setVisibility(View.GONE);
             mCurrentScanFile.setVisibility(View.GONE);
             return;
