@@ -1,4 +1,4 @@
-package com.focus.vbox.view;
+package com.focus.vbox.view.activity;
 
 import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.focus.vbox.R;
 import com.focus.vbox.bean.SwitchVideoModel;
 import com.focus.vbox.listener.OnTransitionListener;
+import com.focus.vbox.view.SampleVideo;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 

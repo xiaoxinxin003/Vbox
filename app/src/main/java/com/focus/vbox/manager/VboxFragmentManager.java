@@ -1,15 +1,14 @@
 package com.focus.vbox.manager;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.focus.vbox.R;
-import com.focus.vbox.view.LocalVideoFragment;
-import com.focus.vbox.view.RecomendFragment;
-import com.focus.vbox.view.SettingsFragment;
+import com.focus.vbox.view.fragment.LocalVideoFragment;
+import com.focus.vbox.view.fragment.RecomendFragment;
+import com.focus.vbox.view.fragment.SettingsFragment;
 
 import java.util.List;
 

@@ -10,6 +10,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.focus.vbox.R;
+import com.focus.vbox.utils.FileUtils;
 
 import java.io.File;
 import java.util.List;
@@ -81,7 +82,7 @@ public class VideoAdapter implements ListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-      holder.videoCover.setImageResource(R.mipmap.ic_launcher);
+        holder.videoCover.setImageBitmap(FileUtils.getVideoThumbnail(info.getPath()));
         holder.videoName.setText(info.getName());
         holder.videoSize.setText("60MB");
         holder.videoTime.setText("2:23");

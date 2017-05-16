@@ -27,7 +27,7 @@
 
         </activity>
         <activity
-        android:name=".view.PlayActivity"
+        android:name=".view.activity.PlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
     </application>

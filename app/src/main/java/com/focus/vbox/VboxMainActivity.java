@@ -1,34 +1,16 @@
 package com.focus.vbox;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.focus.vbox.common.CommonTitleBar;
-import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.manager.VboxFragmentManager;
-import com.focus.vbox.utils.FileUtils;
-import com.focus.vbox.view.PlayActivity;
-
-import java.io.File;
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import com.focus.vbox.view.activity.PlayActivity;
 
 public class VboxMainActivity extends FragmentActivity {
 

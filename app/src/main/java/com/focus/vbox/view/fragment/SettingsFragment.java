@@ -1,4 +1,4 @@
-package com.focus.vbox.view;
+package com.focus.vbox.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

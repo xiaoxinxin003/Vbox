@@ -1,4 +1,4 @@
-package com.focus.vbox.view;
+package com.focus.vbox.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import com.focus.vbox.R;
 import com.focus.vbox.base.BaseFragment;
 import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.utils.FileUtils;
+import com.focus.vbox.view.activity.PlayActivity;
 import com.focus.vbox.view.adapter.VideoAdapter;
 
 import java.io.File;
