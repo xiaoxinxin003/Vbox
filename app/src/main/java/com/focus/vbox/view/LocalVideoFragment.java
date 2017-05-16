@@ -1,12 +1,17 @@
 package com.focus.vbox.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -17,6 +22,7 @@ import com.focus.vbox.R;
 import com.focus.vbox.base.BaseFragment;
 import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.utils.FileUtils;
+import com.focus.vbox.view.adapter.VideoAdapter;
 
 import java.io.File;
 import java.util.List;
@@ -121,7 +127,7 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
                 );
     }
 
-    private void setScanSuc(List videos) {
+    private void setScanSuc(final List<File> videos) {
         if (videos.size() <= 0) {
             Toast.makeText(getContext(), "no video low b!", Toast.LENGTH_SHORT).show();
             mScanBtn.setVisibility(View.VISIBLE);
@@ -129,10 +135,17 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
             mCurrentScanFile.setVisibility(View.GONE);
             return;
         }
+        mCurrentScanFile.setVisibility(View.GONE);
         mScanBtn.setVisibility(View.GONE);
         mLoadingPb.setVisibility(View.GONE);
         mVideoList.setVisibility(View.VISIBLE);
-//        mVideoList.setAdapter();
+        mVideoList.setAdapter(new VideoAdapter(videos, getContext()));
+        mVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                play(videos.get(position));
+            }
+        });
     }
 
 
@@ -144,6 +157,21 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
                 mScanBtn.setVisibility(View.GONE);
                 mLoadingPb.setVisibility(View.VISIBLE);
                 break;
+        }
+    }
+
+    private void play(File file) {
+        Intent intent = new Intent(getActivity(), PlayActivity.class);
+        intent.putExtra("file", file.getAbsolutePath());
+        intent.putExtra(PlayActivity.TRANSITION, true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Pair pair = new Pair<>(this, PlayActivity.IMG_TRANSITION);
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    getActivity(), pair);
+            ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
+        } else {
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         }
     }
 }

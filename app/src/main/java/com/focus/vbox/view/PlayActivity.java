@@ -17,6 +17,7 @@ import com.focus.vbox.listener.OnTransitionListener;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private Transition transition;
     private SampleVideo videoPlayer;
+    private String mFilePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         videoPlayer = (SampleVideo) findViewById(R.id.video_player);
         isTransition = getIntent().getBooleanExtra(TRANSITION, false);
+        mFilePath = getIntent().getStringExtra("file_path");
         init();
     }
 

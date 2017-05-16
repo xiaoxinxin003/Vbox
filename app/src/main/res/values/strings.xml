@@ -7,4 +7,7 @@
     <string name="settings">设置</string>
     <string name="menu_main">main</string>
     <string name="menu_folder">folder</string>
+    <string name="video_name_test">一带一路专题</string>
+    <string name="video_size_test">60KB</string>
+    <string name="video_time_test">时长：0:20:35</string>
 </resources>
