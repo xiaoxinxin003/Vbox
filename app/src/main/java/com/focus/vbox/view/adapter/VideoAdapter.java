@@ -23,6 +23,7 @@ import com.focus.vbox.R;
 import com.focus.vbox.base.VboxApplication;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.activity.PlayActivity;
+import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import java.io.File;
 import java.util.List;
@@ -161,7 +162,7 @@ public class VideoAdapter extends BaseAdapter {
 
     private void play(ImageView videoCover, File file) {
         Intent intent = new Intent(mContext, PlayActivity.class);
-        intent.putExtra("file", file.getAbsolutePath());
+        intent.putExtra("file_path", file.getAbsolutePath());
         intent.putExtra(PlayActivity.TRANSITION, true);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Pair pair = new Pair<>(videoCover, PlayActivity.IMG_TRANSITION);
