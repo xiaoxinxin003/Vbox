@@ -90,9 +90,10 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initData() {
-        if (ConfigManager.getInstance().getAutoScan()) {
-            scan();
-        }
+        scanMedia();
+//        if (ConfigManager.getInstance().getAutoScan()) {
+//            scan();
+//        }
     }
 
     private void scan() {
