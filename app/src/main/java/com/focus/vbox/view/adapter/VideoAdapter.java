@@ -1,38 +1,50 @@
 package com.focus.vbox.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.icu.text.IDNA;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.focus.vbox.R;
+import com.focus.vbox.base.VboxApplication;
 import com.focus.vbox.utils.FileUtils;
+import com.focus.vbox.view.activity.PlayActivity;
 
 import java.io.File;
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import java.util.List;
 
 /**
  * Created by yxx on 2017/5/16.
  */
 
-public class VideoAdapter implements ListAdapter {
+public class VideoAdapter extends BaseAdapter {
     private List<File> mList;
     private LayoutInflater inflater;
+    private Context mContext;
     public VideoAdapter(List videos, Context context) {
         this.mList = videos;
+        this.mContext = context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -91,6 +103,8 @@ public class VideoAdapter implements ListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        holder.videoCover.setTag(info.getName());
 //        Glide.with(VboxApplication.getAppContext())
 //                .load(FileUtils.getVideoThumbnail(info.getPath()))
 //                .into(holder.videoCover);
@@ -108,13 +122,25 @@ public class VideoAdapter implements ListAdapter {
             .subscribe(new Consumer<Bitmap>() {
                 @Override
                 public void accept(Bitmap bitmap) throws Exception {
-                    holder.videoCover.setImageBitmap(bitmap);
+                    if (holder.videoCover.getTag() != null && holder.videoCover.getTag().equals(info.getName())) {
+                        holder.videoCover.setImageBitmap(bitmap);
+                    }
                 }
             })
         ;
         holder.videoName.setText(info.getName());
         holder.videoSize.setText("60MB");
         holder.videoTime.setText("2:23");
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TEST", "CLICK" + info.getName());
+                play(holder.videoCover, info);
+
+            }
+        });
+
         return convertView;
     }
 
@@ -131,6 +157,21 @@ public class VideoAdapter implements ListAdapter {
     @Override
     public boolean isEmpty() {
         return false;
+    }
+
+    private void play(ImageView videoCover, File file) {
+        Intent intent = new Intent(mContext, PlayActivity.class);
+        intent.putExtra("file", file.getAbsolutePath());
+        intent.putExtra(PlayActivity.TRANSITION, true);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Pair pair = new Pair<>(videoCover, PlayActivity.IMG_TRANSITION);
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    (FragmentActivity)mContext, pair);
+            ActivityCompat.startActivity(mContext, intent, activityOptions.toBundle());
+        } else {
+            mContext.startActivity(intent);
+            ((FragmentActivity)mContext).overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
+        }
     }
 
     static class ViewHolder {

@@ -141,13 +141,6 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
         mLoadingPb.setVisibility(View.GONE);
         mVideoList.setVisibility(View.VISIBLE);
         mVideoList.setAdapter(new VideoAdapter(videos, getContext()));
-
-        mVideoList.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                play(videos.get(position));
-            }
-        });
     }
 
 
@@ -162,18 +155,4 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void play(File file) {
-        Intent intent = new Intent(getActivity(), PlayActivity.class);
-        intent.putExtra("file", file.getAbsolutePath());
-        intent.putExtra(PlayActivity.TRANSITION, true);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            Pair pair = new Pair<>(this, PlayActivity.IMG_TRANSITION);
-            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    getActivity(), pair);
-            ActivityCompat.startActivity(getActivity(), intent, activityOptions.toBundle());
-        } else {
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        }
-    }
 }
