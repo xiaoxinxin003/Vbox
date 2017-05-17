@@ -53,6 +53,7 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
     private ImageButton mScanBtn;
     private TextView mCurrentScanFile;
     private List<VideoInfo> mSysVideoList;
+    private boolean isAutoScan = true;
 
     public static LocalVideoFragment newInstance(Bundle args) {
         LocalVideoFragment fragment = new LocalVideoFragment();
@@ -90,7 +91,10 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initData() {
-        scanMedia();
+        if (isAutoScan) {
+            isAutoScan = false;
+            scanMedia();
+        }
 //        if (ConfigManager.getInstance().getAutoScan()) {
 //            scan();
 //        }
