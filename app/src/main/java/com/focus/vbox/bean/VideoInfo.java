@@ -1,46 +1,53 @@
 package com.focus.vbox.bean;
 
-import android.widget.ImageView;
-
 /**
  * Created by yxx on 2017/5/16.
  */
 
 public class VideoInfo {
-    private String cover;
-    private String name;
-    private String size;
-    private String time;
+ private String thumbPath;
+ private String path;
+ private String title;
+ private String displayName;
+ private String mimeType;
 
-    public String getCover() {
-        return cover;
+    public String getThumbPath() {
+        return thumbPath;
     }
 
-    public void setCover(String cover) {
-        this.cover = cover;
+    public void setThumbPath(String thumbPath) {
+        this.thumbPath = thumbPath;
     }
 
-    public String getName() {
-        return name;
+    public String getPath() {
+        return path;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public String getSize() {
-        return size;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getTime() {
-        return time;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 }

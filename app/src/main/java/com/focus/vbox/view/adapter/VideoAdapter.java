@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.focus.vbox.R;
 import com.focus.vbox.base.VboxApplication;
+import com.focus.vbox.bean.VideoInfo;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.activity.PlayActivity;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
@@ -40,7 +41,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class VideoAdapter extends BaseAdapter {
-    private List<File> mList;
+    private List<VideoInfo> mList;
     private LayoutInflater inflater;
     private Context mContext;
     public VideoAdapter(List videos, Context context) {
@@ -75,7 +76,7 @@ public class VideoAdapter extends BaseAdapter {
     }
 
     @Override
-    public File getItem(int position) {
+    public VideoInfo getItem(int position) {
         return mList.get(position);
     }
 
@@ -92,7 +93,7 @@ public class VideoAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        final File info = mList.get(position);
+        final VideoInfo info = mList.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_video, null);
@@ -105,7 +106,7 @@ public class VideoAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.videoCover.setTag(info.getName());
+        holder.videoCover.setTag(info.getPath());
 //        Glide.with(VboxApplication.getAppContext())
 //                .load(FileUtils.getVideoThumbnail(info.getPath()))
 //                .into(holder.videoCover);
@@ -123,22 +124,20 @@ public class VideoAdapter extends BaseAdapter {
             .subscribe(new Consumer<Bitmap>() {
                 @Override
                 public void accept(Bitmap bitmap) throws Exception {
-                    if (holder.videoCover.getTag() != null && holder.videoCover.getTag().equals(info.getName())) {
+                    if (holder.videoCover.getTag() != null && holder.videoCover.getTag().equals(info.getPath())) {
                         holder.videoCover.setImageBitmap(bitmap);
                     }
                 }
-            })
-        ;
-        holder.videoName.setText(info.getName());
+            });
+        holder.videoName.setText(info.getDisplayName());
         holder.videoSize.setText("60MB");
         holder.videoTime.setText("2:23");
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TEST", "CLICK" + info.getName());
-                play(holder.videoCover, info);
-
+                Log.d("TEST", "CLICK" + info.getDisplayName());
+                play(holder.videoCover, info.getPath());
             }
         });
 
@@ -160,9 +159,9 @@ public class VideoAdapter extends BaseAdapter {
         return false;
     }
 
-    private void play(ImageView videoCover, File file) {
+    private void play(ImageView videoCover, String filePath) {
         Intent intent = new Intent(mContext, PlayActivity.class);
-        intent.putExtra("file_path", file.getAbsolutePath());
+        intent.putExtra("file_path", filePath);
         intent.putExtra(PlayActivity.TRANSITION, true);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Pair pair = new Pair<>(videoCover, PlayActivity.IMG_TRANSITION);

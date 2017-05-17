@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.focus.vbox.R;
 import com.focus.vbox.base.BaseFragment;
+import com.focus.vbox.bean.VideoInfo;
 import com.focus.vbox.manager.ConfigManager;
 import com.focus.vbox.utils.FileUtils;
+import com.focus.vbox.utils.MediaUtils;
 import com.focus.vbox.view.activity.PlayActivity;
 import com.focus.vbox.view.adapter.VideoAdapter;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,6 +36,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -49,6 +52,7 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
     private ProgressBar mLoadingPb;
     private ImageButton mScanBtn;
     private TextView mCurrentScanFile;
+    private List<VideoInfo> mSysVideoList;
 
     public static LocalVideoFragment newInstance(Bundle args) {
         LocalVideoFragment fragment = new LocalVideoFragment();
@@ -128,7 +132,7 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
                 );
     }
 
-    private void setScanSuc(final List<File> videos) {
+    private void setScanSuc(final List<VideoInfo> videos) {
         if (videos.size() <= 0) {
             Toast.makeText(getContext(), "no video low b!", Toast.LENGTH_SHORT).show();
             mScanBtn.setVisibility(View.VISIBLE);
@@ -148,11 +152,33 @@ public class LocalVideoFragment extends BaseFragment implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.ib_begin_scan:
-                scan();
+//                scan();
+                scanMedia();
                 mScanBtn.setVisibility(View.GONE);
                 mLoadingPb.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    private void scanMedia() {
+        Observable.create(new ObservableOnSubscribe<List<VideoInfo>>() {
+            @Override
+            public void subscribe(ObservableEmitter<List<VideoInfo>> e) throws Exception {
+                mSysVideoList = MediaUtils.getVideoList();
+                e.onNext(mSysVideoList);
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<VideoInfo>>() {
+                    @Override
+                    public void accept(List list) throws Exception {
+                        if (mSysVideoList != null) {
+                            setScanSuc(mSysVideoList);
+                            Log.d(TAG, "video list is ;" + mSysVideoList.size());
+                        }
+                    }
+                });
     }
 
 }
