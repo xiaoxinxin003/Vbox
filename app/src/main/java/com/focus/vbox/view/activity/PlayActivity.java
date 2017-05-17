@@ -2,6 +2,7 @@ package com.focus.vbox.view.activity;
 
 import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import com.focus.vbox.R;
 import com.focus.vbox.bean.SwitchVideoModel;
 import com.focus.vbox.listener.OnTransitionListener;
+import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.SampleVideo;
 import com.shuyu.gsyvideoplayer.GSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -21,6 +23,13 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 单独的视频播放页面
@@ -73,10 +82,27 @@ public class PlayActivity extends AppCompatActivity {
         videoPlayer.setUp(list, true, "测试视频");
 
         //增加封面
-        ImageView imageView = new ImageView(this);
+        final ImageView imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(R.mipmap.xxx1);
-        videoPlayer.setThumbImageView(imageView);
+//        imageView.setImageResource(R.mipmap.xxx1);
+        Observable.create(new ObservableOnSubscribe<Bitmap>() {
+            @Override
+            public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
+                Bitmap bitmap = FileUtils.getVideoThumbnail(mFilePath);
+                if (bitmap != null) {
+                    e.onNext(bitmap);
+                }
+            }
+        }).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<Bitmap>() {
+                    @Override
+                    public void accept(Bitmap bitmap) throws Exception {
+                        imageView.setImageBitmap(bitmap);
+                        videoPlayer.setThumbImageView(imageView);
+                    }
+                });
+
 
         //增加title
         videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
