@@ -1,6 +1,7 @@
 package com.focus.vbox.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class FileUtils {
         }
         return null;
     }
+
     public static Bitmap getVideoThumbnail(String filePath) {
         Bitmap bitmap = null;
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -95,6 +97,16 @@ public class FileUtils {
             catch (RuntimeException e) {
                 e.printStackTrace();
             }
+        }
+        return bitmap;
+    }
+
+    public static Bitmap getThumb(String thumbPath) {
+        Bitmap bitmap = null;
+        File mFile=new File(thumbPath);
+        //若该文件存在
+        if (mFile.exists()) {
+            bitmap= BitmapFactory.decodeFile(thumbPath);
         }
         return bitmap;
     }

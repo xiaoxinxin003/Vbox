@@ -114,7 +114,7 @@ public class VideoAdapter extends BaseAdapter {
         Observable.create(new ObservableOnSubscribe<Bitmap>() {
             @Override
             public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
-                Bitmap bitmap = FileUtils.getVideoThumbnail(info.getPath());
+                Bitmap bitmap = FileUtils.getThumb(info.getThumbPath());
                 if (bitmap != null) {
                     e.onNext(bitmap);
                 }
