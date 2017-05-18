@@ -28,6 +28,7 @@
         </activity>
         <activity
         android:name=".view.activity.PlayActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
     </application>
