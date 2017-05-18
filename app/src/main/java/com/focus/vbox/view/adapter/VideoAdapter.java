@@ -23,6 +23,7 @@ import com.focus.vbox.R;
 import com.focus.vbox.base.VboxApplication;
 import com.focus.vbox.bean.VideoInfo;
 import com.focus.vbox.utils.CommonUtils;
+import com.focus.vbox.utils.FileSizeUtils;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.activity.PlayActivity;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
@@ -131,7 +132,7 @@ public class VideoAdapter extends BaseAdapter {
                 }
             });
         holder.videoName.setText(info.getDisplayName());
-        holder.videoSize.setText("60MB");
+        holder.videoSize.setText(FileSizeUtils.getFileSizeWithFormat(new File(info.getPath())));
         holder.videoTime.setText(CommonUtils.getTimeFromMillisecond(info.getDuration()));
 
         convertView.setOnClickListener(new View.OnClickListener() {
