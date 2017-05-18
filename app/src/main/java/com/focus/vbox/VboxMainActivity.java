@@ -8,11 +8,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
 import android.view.View;
 
+import com.focus.vbox.base.BaseActivity;
 import com.focus.vbox.common.CommonTitleBar;
 import com.focus.vbox.manager.VboxFragmentManager;
 import com.focus.vbox.view.activity.PlayActivity;
 
-public class VboxMainActivity extends FragmentActivity {
+public class VboxMainActivity extends BaseActivity {
 
     private static final String TAG = "my_log";
     private VboxFragmentManager mVboxFragmentManager;

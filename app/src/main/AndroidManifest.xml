@@ -19,13 +19,12 @@
         <activity android:name=".VboxMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.BaseActivity">
-
-        </activity>
+        <activity android:name=".base.BaseActivity"
+                android:theme="@style/Widget.AppCompat.ActionBar"
+            />
         <activity
         android:name=".view.activity.PlayActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
