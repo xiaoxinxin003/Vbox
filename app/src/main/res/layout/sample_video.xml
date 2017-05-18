@@ -182,6 +182,7 @@
             android:minEms="5"
             android:paddingLeft="10dp"
             android:text="旋转镜像"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:textSize="13sp" />
 
@@ -204,6 +205,7 @@
             android:minEms="5"
             android:paddingLeft="10dp"
             android:text="默认比例"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:textSize="13sp" />
     </LinearLayout>

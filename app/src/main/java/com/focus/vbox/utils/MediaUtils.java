@@ -62,7 +62,20 @@ public class MediaUtils {
                 info.setMimeType(cursor
                         .getString(cursor
                                 .getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE)));
-                info.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)));
+                try{
+                    info.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)));
+                    info.setAlbum(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ALBUM)));
+                    info.setArtist(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.ARTIST)));
+                    info.setDataToken(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_TAKEN)));
+                    info.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DESCRIPTION)));
+                    info.setIsPrivate(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.IS_PRIVATE)));
+                    info.setLatitude(cursor.getDouble(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.LATITUDE)));
+                    info.setLongitude(cursor.getDouble(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.LONGITUDE)));
+                    info.setLanguage(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.LANGUAGE)));
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 sysVideoList.add(info);
             } while (cursor.moveToNext());
         }

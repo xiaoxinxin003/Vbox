@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.focus.vbox.R;
 import com.focus.vbox.bean.SwitchVideoModel;
+import com.focus.vbox.bean.VideoInfo;
 import com.focus.vbox.listener.OnTransitionListener;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.SampleVideo;
@@ -47,15 +48,15 @@ public class PlayActivity extends AppCompatActivity {
 
     private Transition transition;
     private SampleVideo videoPlayer;
-    private String mFilePath;
+    private VideoInfo mVideoInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         videoPlayer = (SampleVideo) findViewById(R.id.video_player);
+        mVideoInfo = getIntent().getParcelableExtra("video_info");
         isTransition = getIntent().getBooleanExtra(TRANSITION, false);
-        mFilePath = getIntent().getStringExtra("file_path");
         init();
     }
 
@@ -69,7 +70,7 @@ public class PlayActivity extends AppCompatActivity {
         //借用了jjdxm_ijkplayer的URL
 //        String source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
         String name = "普通";
-        SwitchVideoModel switchVideoModel = new SwitchVideoModel(name, mFilePath);
+        SwitchVideoModel switchVideoModel = new SwitchVideoModel(name, mVideoInfo.getPath());
 
 //        String source2 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f30.mp4";
 //        String name2 = "清晰";
@@ -79,7 +80,7 @@ public class PlayActivity extends AppCompatActivity {
         list.add(switchVideoModel);
 //        list.add(switchVideoModel2);
 
-        videoPlayer.setUp(list, true, "测试视频");
+        videoPlayer.setUp(list, true, mVideoInfo.getDisplayName());
 
         //增加封面
         final ImageView imageView = new ImageView(this);
@@ -88,7 +89,7 @@ public class PlayActivity extends AppCompatActivity {
         Observable.create(new ObservableOnSubscribe<Bitmap>() {
             @Override
             public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
-                Bitmap bitmap = FileUtils.getVideoThumbnail(mFilePath);
+                Bitmap bitmap = FileUtils.getVideoThumbnail(mVideoInfo.getPath());
                 if (bitmap != null) {
                     e.onNext(bitmap);
                 }
@@ -106,7 +107,7 @@ public class PlayActivity extends AppCompatActivity {
 
         //增加title
         videoPlayer.getTitleTextView().setVisibility(View.VISIBLE);
-        videoPlayer.getTitleTextView().setText("测试视频");
+        videoPlayer.getTitleTextView().setText(mVideoInfo.getTitle());
         //videoPlayer.setShowPauseCover(false);
 
         //videoPlayer.setSpeed(2f);

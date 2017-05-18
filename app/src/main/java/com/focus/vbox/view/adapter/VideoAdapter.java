@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.icu.text.IDNA;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentActivity;
@@ -139,7 +140,7 @@ public class VideoAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.d("TEST", "CLICK" + info.getDisplayName());
-                play(holder.videoCover, info.getPath());
+                play(holder.videoCover, info);
             }
         });
 
@@ -161,9 +162,11 @@ public class VideoAdapter extends BaseAdapter {
         return false;
     }
 
-    private void play(ImageView videoCover, String filePath) {
+    private void play(ImageView videoCover, VideoInfo videoInfo) {
         Intent intent = new Intent(mContext, PlayActivity.class);
-        intent.putExtra("file_path", filePath);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("video_info", videoInfo);
+        intent.putExtras(bundle);
         intent.putExtra(PlayActivity.TRANSITION, true);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Pair pair = new Pair<>(videoCover, PlayActivity.IMG_TRANSITION);
