@@ -101,12 +101,17 @@ public class FileUtils {
         return bitmap;
     }
 
-    public static Bitmap getThumb(String thumbPath) {
+    public static Bitmap getThumb(String path, String thumbPath) {
         Bitmap bitmap = null;
-        File mFile=new File(thumbPath);
-        //若该文件存在
-        if (mFile.exists()) {
-            bitmap= BitmapFactory.decodeFile(thumbPath);
+        if (thumbPath != null) {
+            File mFile=new File(thumbPath);
+            //若该文件存在
+            if (mFile.exists()) {
+                bitmap= BitmapFactory.decodeFile(thumbPath);
+            }
+            if (bitmap == null) {
+                bitmap = getVideoThumbnail(path);
+            }
         }
         return bitmap;
     }

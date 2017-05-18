@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.focus.vbox.R;
 import com.focus.vbox.base.VboxApplication;
 import com.focus.vbox.bean.VideoInfo;
+import com.focus.vbox.utils.CommonUtils;
 import com.focus.vbox.utils.FileUtils;
 import com.focus.vbox.view.activity.PlayActivity;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
@@ -114,7 +115,7 @@ public class VideoAdapter extends BaseAdapter {
         Observable.create(new ObservableOnSubscribe<Bitmap>() {
             @Override
             public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
-                Bitmap bitmap = FileUtils.getThumb(info.getThumbPath());
+                Bitmap bitmap = FileUtils.getThumb(info.getPath(), info.getThumbPath());
                 if (bitmap != null) {
                     e.onNext(bitmap);
                 }
@@ -131,7 +132,7 @@ public class VideoAdapter extends BaseAdapter {
             });
         holder.videoName.setText(info.getDisplayName());
         holder.videoSize.setText("60MB");
-        holder.videoTime.setText("2:23");
+        holder.videoTime.setText(CommonUtils.getTimeFromMillisecond(info.getDuration()));
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

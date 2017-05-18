@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 public class MediaUtils {
+
     public static List<VideoInfo> getVideoList() {
         List<VideoInfo> sysVideoList = new ArrayList<VideoInfo>();// 视频信息集合
         // MediaStore.Video.Thumbnails.DATA:视频缩略图的文件路径
@@ -28,7 +29,9 @@ public class MediaUtils {
         String[] mediaColumns = {MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE,
                 MediaStore.Video.Media.MIME_TYPE,
-                MediaStore.Video.Media.DISPLAY_NAME};
+                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.DURATION
+        };
         ContentResolver resolver = VboxApplication.getAppContext().getContentResolver();
         Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                 mediaColumns, null, null, null);
@@ -59,7 +62,7 @@ public class MediaUtils {
                 info.setMimeType(cursor
                         .getString(cursor
                                 .getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE)));
-
+                info.setDuration(cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION)));
                 sysVideoList.add(info);
             } while (cursor.moveToNext());
         }

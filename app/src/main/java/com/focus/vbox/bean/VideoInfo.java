@@ -5,11 +5,20 @@ package com.focus.vbox.bean;
  */
 
 public class VideoInfo {
- private String thumbPath;
- private String path;
- private String title;
- private String displayName;
- private String mimeType;
+     private String thumbPath;
+     private String path;
+     private String title;
+     private String displayName;
+     private String mimeType;
+    private long duration;
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
 
     public String getThumbPath() {
         return thumbPath;
