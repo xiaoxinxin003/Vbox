@@ -22,6 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.activity.WelcomeActivity"
+
+            />
         <activity android:name=".base.BaseActivity"
                 android:theme="@style/Widget.AppCompat.ActionBar"
             />
